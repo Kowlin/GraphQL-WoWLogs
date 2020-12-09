@@ -1,0 +1,188 @@
+_type: export
+__export_format: 4
+__export_date: 2020-12-09T01:09:29.239Z
+__export_source: insomnia.desktop.app:v2020.5.1
+resources:
+  - _id: req_12d531b9ae7b4427a684485f6ead1e9e
+    parentId: wrk_f1643d2fa7aa4ed7a2ef92d0f9e42065
+    modified: 1607369181510
+    created: 1607019190349
+    url: https://classic.warcraftlogs.com/oauth/token
+    name: Key Generation
+    description: ""
+    method: POST
+    body:
+      mimeType: multipart/form-data
+      params:
+        - name: grant_type
+          value: client_credentials
+          id: pair_dea3bbda031d48038c57843b6a6403dd
+          disabled: false
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: RedBot/WowLogsCog
+        description: ""
+        id: pair_a9f262fb5e8a424fb5629ff1c4251893
+      - name: Content-Type
+        value: multipart/form-data
+        id: pair_c1f94121e7a04a2bac1b9128e50e09c1
+    authentication:
+      username: "{{client_id}}"
+      password: "{{client_secret}}"
+      type: basic
+    metaSortKey: -1607019190349
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_f1643d2fa7aa4ed7a2ef92d0f9e42065
+    parentId: null
+    modified: 1607019178052
+    created: 1607019178052
+    name: WoW Logs
+    description: ""
+    scope: null
+    _type: workspace
+  - _id: req_ff11f76630f448a09be12826632829ee
+    parentId: fld_f2e94cf9347b42cd92fbc8dea0a54b40
+    modified: 1607476136560
+    created: 1607366418133
+    url: https://classic.warcraftlogs.com/api/v2/client
+    name: Player - Last Encounter ID
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query ($char_realm: String!, $char_name: String!, $char_server:
+        String!) {\n  rateLimitData
+        {\n    limitPerHour\n    pointsSpentThisHour\n    pointsResetIn\n  }\n  characterData
+        {\n    character(name: $char_name, serverSlug: $char_realm,
+        serverRegion: $char_server) {\n      name\n      recentReports(limit: 1)
+        {\n        data {\n          fights(killType: Encounters)
+        {\n            encounterID\n            name\n            endTime\n          }\n        }\n      }\n    }\n  }\n}\n","variables":{"char_realm":"","char_name":"","char_server":""}}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_b37bc21215bc4878a6b25f39403bd374
+      - name: User-Agent
+        value: Red-DiscordBot/WowLogsCog
+        description: ""
+        id: pair_a9c40426c2774ad593f56ae57a82fe26
+    authentication:
+      type: bearer
+      prefix: Bearer
+      token: "{{client_token2}}"
+    metaSortKey: -1607019841463.375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_f2e94cf9347b42cd92fbc8dea0a54b40
+    parentId: wrk_f1643d2fa7aa4ed7a2ef92d0f9e42065
+    modified: 1607019183441
+    created: 1607019183441
+    name: GraphQL Queries
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1607019183441
+    _type: request_group
+  - _id: req_7a98bbfb90b14c2d8f7ec59c76612fd2
+    parentId: fld_f2e94cf9347b42cd92fbc8dea0a54b40
+    modified: 1607476127906
+    created: 1607020495043
+    url: https://classic.warcraftlogs.com/api/v2/client
+    name: Player - Gear
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query($char_realm: String!, $char_name: String!, $char_server:
+        String!, $encounter: Int!) {\n  rateLimitData
+        {\n    limitPerHour\n    pointsSpentThisHour\n    pointsResetIn\n  }\n  characterData
+        {\n    character(name: $char_name, serverSlug: $char_realm,
+        serverRegion: $char_server)
+        {\n      name\n      encounterRankings(includeCombatantInfo: true,
+        byBracket: true, encounterID:
+        $encounter)\n    }\n  }\n}\n","variables":{"char_realm":"","char_name":"","char_server":"","encounter":1107}}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_b37bc21215bc4878a6b25f39403bd374
+      - name: User-Agent
+        value: Red-DiscordBot/WowLogsCog
+        description: ""
+        id: pair_a9c40426c2774ad593f56ae57a82fe26
+    authentication:
+      type: bearer
+      prefix: Bearer
+      token: "{{client_token}}"
+    metaSortKey: -1607019711240.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_710c2248f3022723837cc3b34596746af2778e8f
+    parentId: wrk_f1643d2fa7aa4ed7a2ef92d0f9e42065
+    modified: 1607467089817
+    created: 1607019178121
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: {}
+    color: null
+    isPrivate: false
+    metaSortKey: 1607019178122
+    _type: environment
+  - _id: jar_710c2248f3022723837cc3b34596746af2778e8f
+    parentId: wrk_f1643d2fa7aa4ed7a2ef92d0f9e42065
+    modified: 1607467766163
+    created: 1607019178124
+    name: Default Jar
+    cookies:
+      - key: XSRF-TOKEN
+        value: eyJpdiI6IlRGUzM3RGF4eHcyLzNUQUR2cEYzSmc9PSIsInZhbHVlIjoic2ErNEhzSnM1ZHphR2E4cko5c0pFK3RPRkhtcWNPTzJWemRod0FvbG1FTHlKaCt6RTF3ckFQMGowV0VUVTJhampZWFV3TTNRZFpZTlE1b1l0bysyd0tNYlVPQmhPZ3pzbUlsZWsxdnN0a1daNlVCRDI3MU5DQnJnWHNJUktDdUciLCJtYWMiOiJhNDQ5Yzg0ZGZjMWJiNTU5ZThkMzlmYzQyMmRiYmFlOTI5OGM3NjMzMzU2YTEzYTFmY2IzNDBkZWU1MGU1N2ExIn0%3D
+        expires: 2020-12-09T00:49:26.000Z
+        maxAge: 7200
+        domain: warcraftlogs.com
+        path: /
+        secure: true
+        hostOnly: false
+        creation: 2020-12-03T18:31:12.570Z
+        lastAccessed: 2020-12-08T22:49:26.162Z
+        id: "3698872573493275"
+      - key: wcl_session
+        value: eyJpdiI6InMwWTk0RnV4Qy9LcENVVGl4amxESVE9PSIsInZhbHVlIjoiM0hSZTRBdTFJUC9SejBLQ1pDdXZXenZDZXRtY0tUUFZIaUtVYVV6T0FMNjZlaUxBMUkxS2hIV3crdnhBVlJuMG5tNDkvdzZUVkJ1QlRMdm44SS9kODVIK1hWZlNEb3Bac2VFZ0NPWlp3L1Nvb1ladDJsMERnblREdVpMbDAzc2UiLCJtYWMiOiI4MTY0OTMzZmQwMzcxMTY5OGJhNDNjNGFkNjA5MGZiMmZkOTE2NjRjODU0MGFiOTVlOGY5OWM3NDhkZWZkNTNiIn0%3D
+        expires: 2020-12-09T00:49:26.000Z
+        maxAge: 7200
+        domain: warcraftlogs.com
+        path: /
+        secure: true
+        httpOnly: true
+        hostOnly: false
+        creation: 2020-12-03T18:31:12.571Z
+        lastAccessed: 2020-12-08T22:49:26.162Z
+        id: "7830817198522195"
+    _type: cookie_jar
+  - _id: spc_0d61441a2cfb4da5aed5f21a662e3643
+    parentId: wrk_f1643d2fa7aa4ed7a2ef92d0f9e42065
+    modified: 1607019178061
+    created: 1607019178061
+    fileName: WoW Logs
+    contents: ""
+    contentType: yaml
+    _type: api_spec
